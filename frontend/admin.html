@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<style>
+body { font-family: Arial; background:#f0f0f0; padding:20px;}
+h1 { color:#4a90e2; text-align:center;}
+table { width:100%; border-collapse: collapse; margin-top:20px; background:white; border-radius:8px; overflow:hidden;}
+th, td { padding:10px; border-bottom:1px solid #ccc; text-align:left;}
+th { background:#4a90e2; color:white;}
+button { padding:5px 10px; border:none; border-radius:5px; cursor:pointer;}
+button.paid { background:#4caf50; color:white;}
+button.unpaid { background:#f44336; color:white;}
+button.pending { background:#ff9800; color:white;}
+.filter { margin-top:20px; }
+</style>
+</head>
+<body>
+<h1>Traveling Star LLC - Admin Dashboard</h1>
+<div class="filter">
+<label>Filter by Ride Type:</label>
+<select id="rideFilter" onchange="loadRides()">
+  <option value="">All</option>
+  <option value="Local Ride">Local Ride</option>
+  <option value="Airport Shuttle">Airport Shuttle</option>
+  <option value="Long-Distance Ride">Long-Distance Ride</option>
+</select>
+<button onclick="exportCSV()">Export CSV</button>
+</div>
+<table id="ridesTable">
+<thead>
+<tr>
+<th>ID</th><th>Name</th><th>Phone</th><th>Pickup</th><th>Dropoff</th><th>Ride Type</th><th>Payment Status</th><th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<script>
+async function loadRides(){
+  const filter = document.getElementById('rideFilter').value;
+  const response = await fetch('http://localhost:3000/rides');
+  let rides = await response.json();
+  if(filter) rides = rides.filter(r => r.rideType === filter);
+  const tbody = document.querySelector('#ridesTable tbody');
+  tbody.innerHTML = '';
+  rides.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.id}</td><td>${r.name}</td><td>${r.phone}</td><td>${r.pickup}</td><td>${r.dropoff}</td><td>${r.rideType}</td><td>${r.paymentStatus}</td><td><button class="${r.paymentStatus.toLowerCase()}" onclick="updateStatus(${r.id})">Change</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+async function updateStatus(rideId){
+  const status = prompt('Enter payment status (Paid / Unpaid / Pending):');
+  if(!status) return;
+  await fetch('http://localhost:3000/update-payment', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({rideId, status})
+  });
+  loadRides();
+}
+function exportCSV(){
+  const rows = document.querySelectorAll('#ridesTable tr');
+  let csv = [];
+  rows.forEach(row=>{
+    const cols = row.querySelectorAll('td,th');
+    let rowData = [];
+    cols.forEach(col=> rowData.push(col.innerText));
+    csv.push(rowData.join(','));
+  });
+  const csvContent = "data:text/csv;charset=utf-8," + csv.join("
+");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "rides.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+loadRides();
+</script>
+</body>
+</html>

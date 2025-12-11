@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traveling Star LLC POS</title>
+<style>
+body { font-family: Arial; background: #f0f0f0; display:flex; justify-content:center; padding:50px;}
+.container { background:white; padding:30px; border-radius:10px; max-width:400px; width:100%; box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+h1 { text-align:center; color:#4a90e2; }
+label { display:block; margin-top:10px; font-weight:bold; }
+input, select { width:100%; padding:10px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
+button { margin-top:20px; width:100%; padding:15px; background:#4a90e2; color:white; border:none; border-radius:5px; cursor:pointer; font-size:1em; }
+button:hover { background:#357ab8; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Traveling Star LLC</h1>
+  <label>Name</label>
+  <input type="text" id="name">
+  <label>Phone</label>
+  <input type="text" id="phone">
+  <label>Pickup</label>
+  <input type="text" id="pickup">
+  <label>Drop-off</label>
+  <input type="text" id="dropoff">
+  <label>Ride Type</label>
+  <select id="rideType">
+    <option value="Local Ride">Local Ride - $25</option>
+    <option value="Airport Shuttle">Airport Shuttle - $50</option>
+    <option value="Long-Distance Ride">Long-Distance Ride - $100</option>
+  </select>
+  <label>Payment Method</label>
+  <select id="paymentMethod">
+    <option value="POS Link">Pay via POS</option>
+    <option value="Cash">Cash / In Person</option>
+  </select>
+  <button onclick="submitRide()">Submit Ride</button>
+</div>
+<script>
+async function submitRide(){
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const pickup = document.getElementById('pickup').value.trim();
+  const dropoff = document.getElementById('dropoff').value.trim();
+  const rideType = document.getElementById('rideType').value;
+  const paymentMethod = document.getElementById('paymentMethod').value;
+  if(!name||!phone||!pickup||!dropoff){
+    alert('Fill all fields');
+    return;
+  }
+  const paymentStatus = paymentMethod === 'POS Link' ? 'Pending' : 'Unpaid';
+  const response = await fetch('http://localhost:3000/add-ride',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({name, phone, pickup, dropoff, rideType, paymentStatus})
+  });
+  const data = await response.json();
+  if(data.success){
+    alert('Ride submitted! ' + (paymentMethod==='POS Link' ? 'Open POS to pay.' : 'Mark as paid when cash is received.'));
+    if(paymentMethod==='POS Link'){
+      window.open('https://your-personal-pos-link.com', '_blank');
+    }
+  } else alert('Error submitting ride.');
+}
+</script>
+</body>
+</html>
