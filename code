@@ -1,4 +1,0 @@
-travelingstar-pos/
- ├─ server.js
- ├─ package.json
- └─ node_modules/  (will be installed automatically online)
