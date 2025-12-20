@@ -1,0 +1,12 @@
+app.post('/book', (req, res) => { ... });
+app.post('/confirm-payment', (req, res) => { ... });
+app.get('/bookings', (req, res) => res.json(bookings));
+app.post('/update-assignment', (req, res) => {
+  const { id, assignment } = req.body;
+  const booking = bookings.find(b => b.id === id);
+  if(!booking) return res.status(404).json({ error: 'Booking not found' });
+  booking.assignment = assignment;
+  saveBookings();
+  res.json({ success: true, booking });
+});
+

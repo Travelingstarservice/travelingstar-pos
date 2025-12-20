@@ -1,132 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Booking Form</title>
-</head>
-<body>
-  <h1>Make a Booking</h1>
-  <form id="bookingForm">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <input type="number" name="quantity" placeholder="Quantity" required />
-    <button type="submit">Submit</button>
-  </form>
+<div class="hero">
+  <h2>Our Services</h2>
+  <p>Scan a QR code to pay and request your service instantly via Cash App:</p>
+  <ul>
+    <li>
+      Rubbish Removal<br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://cash.app/$TravelingSS?note=Rubbish%20Removal" alt="Rubbish Removal QR"/>
+    </li>
+    <li>
+      Pickup / Drop-off<br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://cash.app/$TravelingSS?note=Pickup%20Drop-off" alt="Pickup Drop-off QR"/>
+    </li>
+    <li>
+      Transporter Service<br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://cash.app/$TravelingSS?note=Transporter%20Service" alt="Transporter Service QR"/>
+    </li>
+    <li>
+      Road Assist<br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://cash.app/$TravelingSS?note=Road%20Assist" alt="Road Assist QR"/>
+    </li>
+  </ul>
+  <p>Payments are verified by admin. Service begins after confirmation.</p>
+</div>
 
-  <script>
-    const form = document.getElementById('bookingForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(form));
-
-      try {
-        const res = await fetch('http://localhost:3000/bookings', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        alert('Booking submitted!');
-        form.reset();
-      } catch (err) {
-        alert('Error submitting booking.');
-        console.error(err);
-      }
-    });
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Booking Form</title>
-</head>
-<body>
-  <h1>Make a Booking</h1>
-  <form id="bookingForm">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <input type="number" name="quantity" placeholder="Quantity" required />
-    <button type="submit">Submit</button>
-  </form>
-
-  <script>
-    const form = document.getElementById('bookingForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(form));
-
-      // Send to backend
-      try {
-        const res = await fetch('http://localhost:3000/bookings', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        alert('Booking submitted!');
-        form.reset();
-      } catch (err) {
-        alert('Error submitting booking.');
-        console.error(err);
-      }
-    });
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Booking Form</title>
-</head>
-<body>
-  <h1>Make a Booking</h1>
-  <form id="bookingForm">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <input type="number" name="quantity" placeholder="Quantity" required />
-    <button type="submit">Submit</button>
-  </form>
-
-  <script>
-    const form = document.getElementById('bookingForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(form));
-
-      // Send to your backend
-      try {
-        const res = await fetch('http://localhost:3000/bookings', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        alert('Booking submitted!');
-        form.reset();
-      } catch (err) {
-        alert('Error submitting booking.');
-        console.error(err);
-      }
-    });
-  </script>
-</body>
-</html>
-<link rel="stylesheet" href="styles.css">
-<script src="app.js" defer></script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TravelingStar POS</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>TravelingStar POS</h1>
-  <div id="app">
-    <button id="testBtn">Check Backend</button>
-    <div id="response"></div>
-  </div>
-  <script src="app.js"></script>
-</body>
-</html>
