@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TravelingStar POS - Cash App Payment</title>
+</head>
+<body>
+  <h1>TravelingStar POS</h1>
+  <div id="payment-container">
+    <h2>Create Booking & Pay via Cash App</h2>
+    <p>Payments are manually verified. Service begins after confirmation.</p>
+
+    <label>Name:</label>
+    <input type="text" id="name" placeholder="Your Name" /><br/><br/>
+    
+    <label>Phone:</label>
+    <input type="text" id="phone" placeholder="Your Phone" /><br/><br/>
+    
+    <label>Amount ($):</label>
+    <input type="number" id="amount" placeholder="Amount" /><br/><br/>
+    
+    <button id="create-booking">Create Booking & Show QR</button>
+
+    <div id="qr-section" style="margin-top:20px;"></div>
+  </div>
+
+  <script>
+    const createBtn = document.getElementById('create-booking');
+    const qrSection = document.getElementById('qr-section');
+
+    createBtn.addEventListener('click', async () => {
+      const customerName = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+
+      if(!customerName || !phone || !amount){
+        alert('Please fill all fields');
+        return;
+      }
+
+      const res = await fetch('http://localhost:3000/book', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({customerName, phone, amount})
+      });
+
+      const data = await res.json();
+      const bookingId = data.booking.id;
+
+
+        <h3>Scan to pay via Cash App</h3>
+        <p>Send EXACT amount $${amount} to: <strong>$TravelingSS</strong></p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://cash.app/$TravelingSS/${bookingId}" />
+        <p>Status: ${data.booking.status}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
+

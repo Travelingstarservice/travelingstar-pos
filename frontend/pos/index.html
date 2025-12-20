@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TravelingStar POS</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #2a9d8f; }
+    .item { margin-bottom: 10px; }
+    button { padding: 5px 10px; margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <h1>TravelingStar POS</h1>
+
+  <h2>Cart:</h2>
+  <ul id="cart"></ul>
+
+  <h2>Bookings from public form:</h2>
+  <ul id="bookings"></ul>
+
+  <div class="item">
+    <span>Item 1</span>
+    <button onclick="addToCart('Item 1')">Add to Cart</button>
+  </div>
+  <div class="item">
+    <span>Item 2</span>
+    <button onclick="addToCart('Item 2')">Add to Cart</button>
+  </div>
+
+  <script>
+    const cartList = document.getElementById('cart');
+    function addToCart(item) {
+      const li = document.createElement('li');
+      li.textContent = item;
+      cartList.appendChild(li);
+    }
+
+    const bookingsContainer = document.getElementById('bookings');
+
+    async function loadBookings() {
+      try {
+        const res = await fetch('http://localhost:3000/bookings');
+        const bookings = await res.json();
+        bookingsContainer.innerHTML = '';
+        bookings.forEach((b, i) => {
+          const li = document.createElement('li');
+          li.textContent = `${i+1}. ${b.name} - ${b.email} - Qty: ${b.quantity}`;
+          bookingsContainer.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Error loading bookings', err);
+      }
+    }
+
+    setInterval(loadBookings, 5000); // refresh every 5 seconds
+    loadBookings(); // initial load
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TravelingStar POS</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #2a9d8f; }
+    .item { margin-bottom: 10px; }
+    button { padding: 5px 10px; margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <h1>TravelingStar POS</h1>
+
+  <div class="item">
+    <span>Item 1</span>
+    <button onclick="addToCart('Item 1')">Add to Cart</button>
+  </div>
+  <div class="item">
+    <span>Item 2</span>
+    <button onclick="addToCart('Item 2')">Add to Cart</button>
+  </div>
+
+  <h2>Cart:</h2>
+  <ul id="cart"></ul>
+
+  <script>
+    const cartList = document.getElementById('cart');
+    function addToCart(item) {
+      const li = document.createElement('li');
+      li.textContent = item;
+      cartList.appendChild(li);
+    }
+  </script>
+</body>
+</html>
+

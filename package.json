@@ -1,0 +1,31 @@
+{
+  "name": "travelingstar-pos",
+  "version": "1.0.0",
+  "description": "\"Online POS system for Traveling Star LLC",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Travelingstarservice/travelingstar-pos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Travelingstarservice/travelingstar-pos/issues"
+  },
+  "homepage": "https://github.com/Travelingstarservice/travelingstar-pos#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "serve": "^14.2.5"
+  }
+}
