@@ -2,17 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
-const PORT = 3000;
-
 app.use(cors());
 app.use(express.json());
 
-const BOOKINGS_FILE = './bookings.json';
+const BOOKINGS_FILE = 'bookings.json';
 
 let bookings = [];
 if (fs.existsSync(BOOKINGS_FILE)) {
-  const data = fs.readFileSync(BOOKINGS_FILE);
-  bookings = JSON.parse(data);
+  bookings = JSON.parse(fs.readFileSync(BOOKINGS_FILE));
 }
 
 function saveBookings() {
@@ -21,31 +18,33 @@ function saveBookings() {
 
 app.post('/book', (req, res) => {
   const { customerName, phone, amount } = req.body;
-  const newBooking = {
-    id: bookings.length + 1,
-    customerName,
-    phone,
-    amount,
-    paymentMethod: 'cashapp',
-    status: 'PENDING_PAYMENT'
-  };
-  bookings.push(newBooking);
+  const id = bookings.length + 1;
+  const booking = { id, customerName, phone, amount, status: 'PENDING_PAYMENT', assignment: '' };
+  bookings.push(booking);
   saveBookings();
-  res.json({ success: true, booking: newBooking });
+  res.json({ success: true, booking });
 });
 
 app.post('/confirm-payment', (req, res) => {
   const { id } = req.body;
   const booking = bookings.find(b => b.id === id);
   if (!booking) return res.status(404).json({ error: 'Booking not found' });
-  booking.status = 'PAID_CONFIRMED';
+  booking.status = 'PAID';
   saveBookings();
   res.json({ success: true, booking });
 });
 
-app.get('/bookings', (req, res) => {
-  res.json(bookings);
+app.get('/bookings', (req, res) => res.json(bookings));
+
+app.post('/update-assignment', (req, res) => {
+  const { id, assignment } = req.body;
+  const booking = bookings.find(b => b.id === id);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  booking.assignment = assignment;
+  saveBookings();
+  res.json({ success: true, booking });
 });
 
-app.listen(PORT, () => console.log(`Server running at http://localhost:3000`));
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
 
