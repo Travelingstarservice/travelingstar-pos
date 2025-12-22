@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Traveling Star Transport & Services</title>
+<style>
+:root {--primary-color:#007bff;--secondary-color:#00c244;--accent-color:#ff9500;}
+body{margin:0;font-family:sans-serif;background:#f5f5f5;color:#222;scroll-behavior:smooth;}
+.container{max-width:950px;margin:auto;padding:20px;}
+header{text-align:center;padding:50px 20px;background:var(--primary-color);color:#fff;}
+header h1{margin-bottom:10px;font-size:2.2rem;}
+header p{font-size:1.2rem;opacity:0.9;}
+.section{background:#fff;margin-top:20px;padding:25px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.05);}
+.section h2{margin-bottom:20px;font-size:1.5rem;border-bottom:2px solid #eee;padding-bottom:10px;}
+.service-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;}
+.card{background:#f0f0f0;padding:20px;border-radius:8px;text-align:center;cursor:pointer;transition:0.3s; user-select:none;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,0.15);}
+.card.selected{border:2px solid var(--secondary-color);background:#e0ffe6;}
+.card h3{margin:10px 0;font-size:1.1rem;}
+.card button{margin-top:8px;padding:8px 12px;font-size:0.95rem;border:none;border-radius:6px;background:var(--accent-color);color:#fff;cursor:pointer;}
+.card button:hover{background:#e07a00;}
+.buttons a, button{display:inline-block;margin:10px;padding:12px 20px;border-radius:8px;font-size:1.1rem;color:#fff;text-decoration:none;cursor:pointer;}
+.book-btn{background:var(--primary-color);}
+.cashapp-btn{background:var(--secondary-color);}
+.copy-btn{background:var(--secondary-color);}
+.qr-section{text-align:center;margin-top:20px;}
+.qr-section img{max-width:200px;border:2px solid #eee;border-radius:8px;margin-top:10px;transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer;}
+.qr-section img:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.selected-icons{margin-top:10px;font-size:1.2rem;}
+footer{text-align:center;padding:30px 15px;font-size:0.95rem;color:#666;margin-top:30px;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Traveling Star Transport & Services</h1>
+<p>Reliable • Fast • Professional Local Services</p>
+</header>
+
+<div class="container">
+
+<div class="section">
+<h2>Select Services</h2>
+<div class="service-cards">
+  <div class="card" data-service="🚛 Rubbish Removal" data-note="Rubbish%20Removal">
+    🚛<h3>Rubbish Removal & Cleanouts</h3>
+  </div>
+  <div class="card" data-service="📦 Pickup & Drop-Off" data-note="Pickup%20Drop-off">
+    📦<h3>Pickup & Drop-Off Services</h3>
+  </div>
+  <div clas
+ 
+
+cd ~/Documents/GitHub/travelingstar-pos/frontend
+cp index.html index.html.bak
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Traveling Star Transport & Services</title>
+<style>
+:root {--primary-color:#007bff;--secondary-color:#00c244;--accent-color:#ff9500;}
+body{margin:0;font-family:sans-serif;background:#f5f5f5;color:#222;scroll-behavior:smooth;}
+.container{max-width:950px;margin:auto;padding:20px;}
+header{text-align:center;padding:50px 20px;background:var(--primary-color);color:#fff;}
+header h1{margin-bottom:10px;font-size:2.2rem;}
+header p{font-size:1.2rem;opacity:0.9;}
+.section{background:#fff;margin-top:20px;padding:25px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,0.05);}
+.section h2{margin-bottom:20px;font-size:1.5rem;border-bottom:2px solid #eee;padding-bottom:10px;}
+.service-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;}
+.card{background:#f0f0f0;padding:20px;border-radius:8px;text-align:center;cursor:pointer;transition:0.3s; user-select:none;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,0.15);}
+.card.selected{border:2px solid var(--secondary-color);background:#e0ffe6;}
+.card h3{margin:10px 0;font-size:1.1rem;}
+.card button{margin-top:8px;padding:8px 12px;font-size:0.95rem;border:none;border-radius:6px;background:var(--accent-color);color:#fff;cursor:pointer;}
+.card button:hover{background:#e07a00;}
+.buttons a, button{display:inline-block;margin:10px;padding:12px 20px;border-radius:8px;font-size:1.1rem;color:#fff;text-decoration:none;cursor:pointer;}
+.book-btn{background:var(--primary-color);}
+.cashapp-btn{background:var(--secondary-color);}
+.copy-btn{background:var(--secondary-color);}
+.qr-section{text-align:center;margin-top:20px;}
+.qr-section img{max-width:200px;border:2px solid #eee;border-radius:8px;margin-top:10px;transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer;}
+.qr-section img:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.selected-icons{margin-top:10px;font-size:1.2rem;}
+footer{text-align:center;padding:30px 15px;font-size:0.95rem;color:#666;margin-top:30px;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Traveling Star Transport & Services</h1>
+<p>Reliable • Fast • Professional Local Services</p>
+</header>
+
+<div class="container">
+
+<div class="section">
+<h2>Select Services</h2>
+<div class="service-cards">
+  <div class="card" data-service="🚛 Rubbish Removal" data-note="Rubbish%20Removal">
+    🚛<h3>Rubbish Removal & Cleanouts</h3>
+  </div>
+  <div class="card" data-service="📦 Pickup & Drop-Off" data-note="Pickup%20Drop-off">
+    📦<h3>Pickup & Drop-Off Services</h3>
+  </div>
+  <div class="card" data-service="🪑 Transporter" data-note="Transporter%20Service">
+    🪑<h3>Transporter Services</h3>
+  </div>
+  <div class="card" data-service="🧰 Local Errands" data-note="Local%20Errands">
+    🧰<h3>Local Errands & On-Demand Jobs</h3>
+  </div>
+</div>
+
+<div class="qr-section" id="bypassQR" style="display:none;">
+<p>Scan the QR code below to pay for selected services:</p>
+<a id="cashAppLink" href="https://cash.app/$TravelingSS" target="_blank">
+<img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://cash.app/$TravelingSS" alt="Pay QR"/>
+</a>
+<br/>
+<button class="copy-btn" id="copyCashtag">Copy Cashtag</button>
+<div class="selected-icons" id="selectedIcons"></div>
+</div>
+</div>
+
+<div class="section" id="contact">
+<h2>Contact Us</h2>
+<p>Call or Text: <strong><a href="tel:2529692444">(252) 969-2444</a></strong></p>
+<p>Email: <strong><a href="mailto:info@travelingstar.com">info@travelingstar.com</a></strong></p>
+</div>
+
+</div>
+
+<footer>
+Traveling Star Transport & Services<br>
+Fast Response • Fair Pricing • Professional Service
+</footer>
+
+<script>
+const cards = document.querySelectorAll('.card');
+const qrSection = document.getElementById('bypassQR');
+const qrImage = document.getElementById('qrImage');
+const cashAppLink = document.getElementById('cashAppLink');
+const selectedIconsDiv = document.getElementById('selectedIcons');
+const cashtag = '$TravelingSS';
+let selectedNotes = [];
+let selectedServices = [];
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('selected');
+    selectedNotes = Array.from(document.querySelectorAll('.card.selected')).map(c=>c.dataset.note);
+    selectedServices = Array.from(document.querySelectorAll('.card.selected')).map(c=>c.dataset.service);
+
+    if(selectedNotes.length>0){
+      const dataUrl = 'https://cash.app/' + cashtag + '?note=' + selectedNotes.join(',');
+      qrImage.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(dataUrl);
+      cashAppLink.href = dataUrl;
+      selectedIconsDiv.textContent = 'Selected Services: ' + selectedServices.join(' ');
+      qrSection.style.display = 'block';
+      qrSection.scrollIntoView({behavior:'smooth'});
+
+      // Send to local backend for logging
+      fetch('/log-services', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({services: selectedServices})
+      }).then(res => console.log('Logged to local file'));
+
+    } else {
+      qrSection.style.display = 'none';
+      selectedIconsDiv.textContent = '';
+    }
+  });
+});
+
+document.getElementById('copyCashtag').addEventListener('click', function(){
+  navigator.clipboard.writeText(cashtag).then(() => {
+    alert('Cashtag copied: ' + cashtag);
+  });
+});
+</script>
+
+</body>
+</html>

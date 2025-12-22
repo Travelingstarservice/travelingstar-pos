@@ -1,70 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TravelingStar POS - Admin Panel</title>
+<meta charset="UTF-8">
+<title>Traveling Star - Admin Office</title>
+<style>
+body{font-family:Arial;background:#f5f5f5;padding:40px}
+.card{background:#fff;padding:30px;border-radius:10px;max-width:800px;margin:auto}
+button{padding:10px 15px;border:none;border-radius:6px;background:#007bff;color:#fff;cursor:pointer}
+pre{background:#eee;padding:15px;border-radius:6px;white-space:pre-wrap}
+</style>
 </head>
 <body>
-  <h1>Admin Panel - TravelingStar POS</h1>
-  <table border="1" id="bookings-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Amount</th>
-        <th>Payment Method</th>
-        <th>Status</th>
-        <th>Action</th>
-        <th>QR Code</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
 
-  <script>
-    const tableBody = document.querySelector("#bookings-table tbody");
+<div class="card">
+<h1>Traveling Star - Admin Office</h1>
+<button onclick="loadLog()">Refresh Service Log</button>
+<pre id="log">No service activity yet.</pre>
+</div>
 
-    async function fetchBookings() {
-      const res = await fetch('http://localhost:3000/bookings');
-      const bookings = await res.json();
+<script>
+function loadLog(){
+  fetch('/get-log')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('log').textContent=data.length?data.join('\n'):'No service activity yet.';
+    })
+    .catch(()=>{document.getElementById('log').textContent='Backend server is not running.';});
+}
+loadLog();
+</script>
 
-      tableBody.innerHTML = ''; // Clear table
-
-      bookings.forEach(b => {
-        const row = document.createElement('tr');
-
-        row.innerHTML = `
-          <td>${b.id}</td>
-          <td>${b.customerName}</td>
-          <td>${b.phone}</td>
-          <td>$${b.amount}</td>
-          <td>${b.paymentMethod}</td>
-          <td>${b.status}</td>
-          <td>
-            ${b.status === 'PENDING_PAYMENT' ? `<button onclick="confirmPayment(${b.id})">Confirm</button>` : ''}
-          </td>
-          <td>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://cash.app/$TravelingSS/${b.id}" />
-          </td>
-        `;
-
-        tableBody.appendChild(row);
-      });
-    }
-
-    async function confirmPayment(id) {
-      await fetch('http://localhost:3000/confirm-payment', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({id})
-      });
-    }
-
-    fetchBookings();
-
-    setInterval(fetchBookings, 5000);
-  </script>
 </body>
 </html>
-
