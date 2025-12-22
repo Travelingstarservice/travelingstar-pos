@@ -1,4 +1,87 @@
-<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TravelingStar POS - Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 { text-align: center; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #00c244;
+      color: white;
+    }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    .total {
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <h1>TravelingStar POS - Admin Dashboard</h1>
+
+  <table id="booking-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Service</th>
+        <th>Amount ($)</th>
+        <th>Date/Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Bookings will appear here -->
+    </tbody>
+  </table>
+
+  <div class="total" id="total-amount">Total: $0</div>
+
+  <script>
+    // Example bookings data (replace with real data later)
+    const bookings = [
+      { name: "Alice", phone: "123-456-7890", service: "Haircut", amount: 20, datetime: "2025-12-21 10:00" },
+      { name: "Bob", phone: "987-654-3210", service: "Massage", amount: 50, datetime: "2025-12-21 11:30" },
+    ];
+
+    const tbody = document.getElementById('booking-table').querySelector('tbody');
+    let total = 0;
+
+    bookings.forEach(b => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${b.name}</td>
+        <td>${b.phone}</td>
+        <td>${b.service}</td>
+        <td>${b.amount}</td>
+        <td>${b.datetime}</td>
+      `;
+      tbody.appendChild(row);
+      total += b.amount;
+    });
+
+    document.getElementById('total-amount').innerText = `Total: $${total}`;
+  </script>
+</body>
+</html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
