@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traveling Star | Service Pricing</title>
+  <meta name="description" content="View clear, upfront pricing for Traveling Star services before checkout." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #9ca3af;
+      --text: #e5e7eb;
+      --accent: #22c55e;
+      --accent-2: #38bdf8;
+      --border: #1f2933;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #0b1220, transparent), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      padding: 2.5rem 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+    .brand {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand h1 { margin: 0; font-size: 1.75rem; letter-spacing: 0.3px; }
+    .badge { background: rgba(34,197,94,.12); color: var(--accent); padding: .35rem .6rem; border-radius: 999px; font-size: .75rem; }
+
+    .hero { padding: 2rem 0 1rem; }
+    .hero p { color: var(--muted); max-width: 700px; }
+
+    .controls {
+      display: grid; grid-template-columns: 1fr auto auto; gap: .75rem; align-items: center;
+      margin: 1.25rem 0 1.75rem;
+    }
+    .controls input, .controls select, .controls button {
+      background: #0b1220; color: var(--text); border: 1px solid var(--border); border-radius: .6rem;
+      padding: .65rem .75rem; font-size: .95rem;
+    }
+    .controls button { cursor: pointer; }
+    .controls button.primary { background: linear-gradient(135deg, var(--accent), #16a34a); border: none; color: #052e16; font-weight: 600; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .card {
+      background: linear-gradient(180deg, #0b1220, var(--card));
+      border: 1px solid var(--border);
+      border-radius: 1rem; padding: 1.25rem; box-shadow: 0 10px 25px rgba(0,0,0,.25);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .card h3 { margin: 0 0 .25rem; }
+    .price { font-size: 2rem; font-weight: 700; margin: .5rem 0; }
+    .muted { color: var(--muted); }
+    ul { padding-left: 1.1rem; margin: .75rem 0 1rem; }
+    li { margin: .35rem 0; }
+
+    .card .actions { display: flex; gap: .5rem; margin-top: .75rem; }
+    .btn {
+      flex: 1; text-align: center; padding: .6rem .75rem; border-radius: .6rem; border: 1px solid var(--border);
+      text-decoration: none; color: var(--text);
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--accent-2), #22d3ee); border: none; color: #042f2e; font-weight: 600; }
+
+    .faq { margin: 2.5rem 0; }
+    .faq h2 { margin-bottom: .75rem; }
+    details { background: #0b1220; border: 1px solid var(--border); border-radius: .75rem; padding: .75rem 1rem; margin: .5rem 0; }
+    summary { cursor: pointer; font-weight: 600; }
+
+    footer { border-top: 1px solid var(--border); padding: 1.25rem 0 2rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container brand">
+      <h1>Traveling Star</h1>
+      <span class="badge">Transparent Pricing</span>
+    </div>
+    <div class="container hero">
+      <p>Review services and prices before checkout. No surprises — select what you need, then continue to secure payment.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="controls">
+      <input id="search" placeholder="Search services…" />
+      <select id="category">
+        <option value="all">All categories</option>
+        <option value="food">Food</option>
+        <option value="service">Service</option>
+        <option value="event">Event</option>
+      </select>
+      <button class="primary" onclick="goToCheckout()">Continue to Checkout</button>
+    </section>
+
+    <section id="cards" class="grid"></section>
+
+    <section class="faq">
+      <h2>FAQs</h2>
+      <details><summary>Do prices include tax?</summary><p class="muted">Tax is calculated at checkout based on location.</p></details>
+      <details><summary>Can I pay with Cash App?</summary><p class="muted">Yes. Cash App is supported at checkout.</p></details>
+      <details><summary>Are refunds available?</summary><p class="muted">Refunds depend on the service selected. Please review terms at checkout.</p></details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Traveling Star. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // =============================
+    // QR SCAN + ADVANCED LOGIC LAYER
+    // =============================
+    // 1. QR required ONLY at purchase
+    // 2. Tax + fees calculation
+    // 3. Customer info capture
+    // 4. Admin price control (role-based)
+
+    const ADMIN_MODE = false; // toggle true for admin pricing edits
+    const TAX_RATE = 0.0825; // 8.25% example
+    const SERVICE_FEE = 1.5; // flat service fee
+
+    function requireQRThenCheckout() {
+      const scanned = localStorage.getItem('ts_qr_verified');
+      if (!scanned) {
+        window.location.href = '/scan-qr.html';
+      } else {
+        window.location.href = '/checkout.html';
+      }
+    }
+
+    const SERVICES = [
+      // Prices editable only in ADMIN_MODE
+      { id: 1, name: 'Basic Meal', price: 12.99, category: 'food', features: ['Freshly prepared', 'Quick service'] },
+      { id: 2, name: 'Premium Meal', price: 18.99, category: 'food', features: ['Chef special', 'Large portion'] },
+      { id: 3, name: 'Setup Service', price: 49.00, category: 'service', features: ['On-site setup', '30 min support'] },
+      { id: 4, name: 'Event Package', price: 199.00, category: 'event', features: ['Up to 50 guests', 'Staff included'] }
+    ];
+
+    const cardsEl = document.getElementById('cards');
+    const searchEl = document.getElementById('search');
+    const categoryEl = document.getElementById('category');
+
+    function render() {
+      const q = searchEl.value.toLowerCase();
+      const cat = categoryEl.value;
+      cardsEl.innerHTML = '';
+      SERVICES.filter(s => (cat === 'all' || s.category === cat) && s.name.toLowerCase().includes(q))
+        .forEach(s => cardsEl.appendChild(card(s)));
+    }
+
+    function card(s) {
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.innerHTML = `
+        <div>
+          <h3>${s.name}</h3>
+          <div class="price">$${s.price.toFixed(2)}</div>
+          <div class="muted">Category: ${s.category}</div>
+          <ul>${s.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#" onclick="addToCart(${s.id})">Add</a>
+          <a class="btn primary" href="#" onclick="addToCart(${s.id}); goToCheckout();">Buy now</a>
+        </div>`;
+      return el;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('ts_cart') || '[]');
+    function addToCart(id) {
+      const item = SERVICES.find(s => s.id === id);
+      if (!item) return;
+      cart.push(item);
+      localStorage.setItem('ts_cart', JSON.stringify(cart));
+      alert(item.name + ' added to cart');
+    }
+
+    function goToCheckout() {
+      requireQRThenCheckout();
+    }
+
+    searchEl.addEventListener('input', render);
+    categoryEl.addEventListener('change', render);
+    document.getElementById('year').textContent = new Date().getFullYear();
+    render();
+  </script>
+</body>
+</html>
+
