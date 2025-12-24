@@ -30,9 +30,9 @@ app.post('/log-service',(req,res)=>{
 app.get('/get-log',(req,res)=>{
   res.json(logs);
 });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
 
-const PORT = 3000;
-app.listen(PORT,'0.0.0.0',()=>console.log(`Server running at http://localhost:${PORT}`));
 // At the top of server.js
 const bookings = [];
 app.post("/create-booking", express.json(), (req, res) => {
