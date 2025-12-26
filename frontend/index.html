@@ -1,106 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Traveling Star Transport & Services</title>
-<style>
-:root{
-  --primary:#007bff;
-  --secondary:#00c244;
-  --bg:#f5f5f5;
-  --card:#fff;
-  --text:#222;
-}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
-header{background:#000;color:#fff;text-align:center;padding:40px}
-header h1{font-size:2rem;margin-bottom:5px}
-header p{opacity:0.9}
-.container{max-width:900px;margin:auto;padding:20px}
-.section{background:var(--card);margin-top:20px;padding:25px;border-radius:10px;box-shadow:0 3px 15px rgba(0,0,0,0.05)}
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
-.service{background:#eee;padding:20px;border-radius:8px;text-align:center;font-weight:bold;cursor:pointer;transition:all 0.3s}
-.service:hover{background:#ddd;transform:scale(1.05)}
-.pay-options{text-align:center;margin-top:20px;display:none}
-.pay-options button{padding:15px 25px;margin:10px;font-size:1.1rem;border:none;border-radius:6px;cursor:pointer;transition:all 0.2s}
-.pay-now{background:var(--secondary);color:#fff}
-.pay-now:hover{filter:brightness(1.1)}
-.pay-later{background:var(--primary);color:#fff}
-.pay-later:hover{filter:brightness(1.1)}
-.qr{text-align:center;margin-top:25px;display:none;transition:all 0.3s}
-.qr img{border:2px solid #eee;border-radius:8px;transition:transform 0.3s ease,box-shadow 0.3s ease}
-.qr img:hover{transform:scale(1.05);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
-footer{text-align:center;padding:30px;color:#666;margin-top:30px;font-size:0.95rem}
-@media(max-width:600px){.services{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <title>Traveling Star POS</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-qr-code@2.0.6/lib/index.js"></script>
 </head>
 <body>
+<div id="root"></div>
 
-<header>
-<h1>Traveling Star Transport & Services</h1>
-<p>Reliable • Fast • Professional Local Services</p>
-</header>
+<script type="text/babel">
 
-<div class="container">
+const { useState, useEffect } = React;
+const API_URL = "https://travelingstar-pos.onrender.com";
 
-<div class="section">
-<h2>Select Service</h2>
-<div class="services">
-<div class="service" onclick="chooseService('Rubbish Removal')">🚛 Rubbish Removal</div>
-<div class="service" onclick="chooseService('Pickup & Drop-Off')">📦 Pickup & Drop-Off</div>
-<div class="service" onclick="chooseService('Transporter Service')">🪑 Transporter Service</div>
-<div class="service" onclick="chooseService('Local Errands')">🧰 Local Errands</div>
-</div>
-</div>
+function App() {
+  const [products, setProducts] = useState([]);
+  const [customers, setCustomers] = useState([]);
 
-<div class="section pay-options" id="payOptions">
-<h2 id="chosen">Choose Payment</h2>
-<button class="pay-now" onclick="pay('Pay Now')">Pay Now</button>
-<button class="pay-later" onclick="pay('Pay After Service')">Pay After Service</button>
-</div>
+  useEffect(() => {
+    fetch(`${API_URL}/products`)
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(err => console.error(err));
 
-<div class="section qr" id="qrSection">
-<h3 id="summary"></h3>
-<a id="cashLink" target="_blank">
-<img id="qrImg" width="260">
-</a>
-</div>
+    fetch(`${API_URL}/customers`)
+      .then(res => res.json())
+      .then(data => setCustomers(data))
+      .catch(err => console.error(err));
+  }, []);
 
-</div>
+  const handleBuy = (product) => {
+    alert(`Buy Now clicked for ${product.name} — $${product.price}`);
+    // Replace alert with CashApp/Stripe link later
+  };
 
-<footer>
-Call/Text: (252) 969-2444<br>
-Cash App: $TravelingSS
-</footer>
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      <h1>Products / Services</h1>
+      <ul>
+        {products.map(p => (
+          <li key={p.id} style={{ marginBottom: "20px" }}>
+            {p.name} — ${p.price}
+            <button onClick={() => handleBuy(p)} style={{ marginLeft: "10px" }}>
+              Buy Now
+            </button>
+            <div style={{ marginTop: "10px" }}>
+              <QRCode value={`Buy ${p.name} for $${p.price}`} size={128} />
+            </div>
+          </li>
+        ))}
+      </ul>
 
-<script>
-let selectedService='';
-
-function chooseService(service){
-  selectedService=service;
-  document.getElementById('chosen').textContent='Service: '+service;
-  document.getElementById('payOptions').style.display='block';
+      <h1>Customers</h1>
+      <ul>
+        {customers.map(c => (
+          <li key={c.id}>{c.name} — {c.email}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-function pay(type){
-  if(!selectedService){alert("Please select a service first."); return;}
-  const note = selectedService+' - '+type;
+ReactDOM.render(<App />, document.getElementById("root"));
 
-  // Log service
-  fetch('/log-service',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({service:note})
-  });
-
-  // Cash App QR
-  const cashLink='https://cash.app/$TravelingSS?note='+encodeURIComponent(note);
-  document.getElementById('summary').textContent=note;
-  document.getElementById('cashLink').href=cashLink;
-  document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+encodeURIComponent(cashLink);
-  document.getElementById('qrSection').style.display='block';
-}
 </script>
-
 </body>
 </html>
