@@ -1,31 +1,30 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 app.use(cors());
 app.use(express.json());
 
-// Basic test route
-app.get('/', (req, res) => {
-  res.send('Backend is live!');
-});
+// Sample products/services
+const products = [
+  { id: 1, name: "Star Necklace", price: 25 },
+  { id: 2, name: "Galaxy Bracelet", price: 15 },
+  { id: 3, name: "Cosmic Ring", price: 40 }
+];
 
-// Offers API (example)
-app.get('/api/offers', (req, res) => {
-  res.json({
-    offers: [
-      { title: 'Ad 1', description: 'Special Service Available' },
-      { title: 'Ad 2', description: 'Limited Time Offer' }
-    ]
-  });
-});
+// Sample customers
+const customers = [
+  { id: 1, name: "Alice", email: "alice@example.com" },
+  { id: 2, name: "Bob", email: "bob@example.com" }
+];
 
-// Start server
+// Routes
+app.get("/", (req, res) => res.send("Backend is running"));
+app.get("/products", (req, res) => res.json(products));
+app.get("/customers", (req, res) => res.json(customers));
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+  console.log(\`Backend running on port \${PORT}\`);
 });
-
