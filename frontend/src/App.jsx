@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import QRCode from "react-qr-code";
 
 const API_URL = "https://travelingstar-pos.onrender.com";
 
@@ -18,12 +19,25 @@ function App() {
       .catch(err => console.error(err));
   }, []);
 
+  const handleBuy = (product) => {
+    alert(`Buy Now clicked for ${product.name} — $${product.price}`);
+    // Here you can later integrate CashApp/Stripe payment link
+  };
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h1>Products / Services</h1>
       <ul>
         {products.map(p => (
-          <li key={p.id}>{p.name} — ${p.price}</li>
+          <li key={p.id} style={{ marginBottom: "20px" }}>
+            {p.name} — ${p.price}
+            <button onClick={() => handleBuy(p)} style={{ marginLeft: "10px" }}>
+              Buy Now
+            </button>
+            <div style={{ marginTop: "10px" }}>
+              <QRCode value={`Buy ${p.name} for $${p.price}`} size={128} />
+            </div>
+          </li>
         ))}
       </ul>
 
