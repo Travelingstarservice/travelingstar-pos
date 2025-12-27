@@ -1,18 +1,21 @@
+ 
+
 {
   "name": "travelingstar-pos",
   "version": "1.0.0",
   "type": "module",
+  "description": "Cash App backend with visitor logging and offers API",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": "18.x"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "stripe": "^14.25.0"
+    "node-fetch": "^2.6.12"
   }
 }
 

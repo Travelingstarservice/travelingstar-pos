@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { sendBooking } from "../api/api";
 
 export default function Book() {
+  const [form, setForm] = useState({ name: "", phone: "", service: "" });
+  const [status, setStatus] = useState("");
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const res = await sendBooking(form);
+    setStatus(res.message);
+  };
+
   return (
-    <div style={{ maxWidth: 800, margin: "2em auto", padding: "0 1em" }}>
-      <h1 style={{ color: "#003366" }}>Book a Ride</h1>
-      <p>Call <strong>(252) 969-2444</strong> or email <a href="mailto:info@travelingstartransport.com">info@travelingstartransport.com</a> to book your ride.</p>
-      <p>We handle airport pickups, hourly events, and special transportation requests.</p>
+    <div style={{ maxWidth: 600, margin: "2em auto" }}>
+      <h1>Book a Ride</h1>
+
+      <form onSubmit={submit}>
+        <input placeholder="Name" required
+          onChange={e => setForm({ ...form, name: e.target.value })} /><br/><br/>
+
+        <input placeholder="Phone" required
+          onChange={e => setForm({ ...form, phone: e.target.value })} /><br/><br/>
+
+        <input placeholder="Service"
+          onChange={e => setForm({ ...form, service: e.target.value })} /><br/><br/>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <p>{status}</p>
     </div>
   );
 }

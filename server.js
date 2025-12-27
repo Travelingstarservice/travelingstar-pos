@@ -1,19 +1,29 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import Stripe from "stripe";
-
-dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("🚀 Traveling Star POS is LIVE");
+let visitors = [];
+
+app.post("/visitor", (req, res) => {
+  const visitor = {
+    ip: req.ip,
+    userAgent: req.headers["user-agent"],
+    timestamp: new Date(),
+  };
+  visitors.push(visitor);
+  res.json({ message: "Visitor logged", visitorCount: visitors.length });
 });
 
-const PORT = process.env.PORT || 3000;
+app.get("/visitors", (req, res) => {
+  res.json(visitors);
+});
+
+const PORT = process.env.PORT || 4000;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

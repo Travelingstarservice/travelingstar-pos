@@ -1,0 +1,14 @@
+{
+  "name": "travelingstar-pos-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "react-qr-code": "^2.0.18"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}
