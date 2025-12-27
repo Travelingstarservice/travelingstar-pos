@@ -1,26 +1,17 @@
 import React from "react";
+import QRCode from "react-qr-code";
 
 export default function Payment() {
   return (
-    <div style={{ maxWidth: 700, margin: "2em auto", padding: "1em" }}>
-      <h1 style={{ color: "#003366" }}>Pay with Cash App</h1>
-
-      <p>Please send payment to:</p>
-
-      <h2>$TravelingStarTransport</h2>
-
-      <p>
-        After payment, include:
-        <ul>
-          <li>Your Name</li>
-          <li>Pickup Date</li>
-          <li>Service Type</li>
-        </ul>
-      </p>
-
-      <p>
-        Questions? Call <strong>(252) 969-2444</strong>
-      </p>
+    <div style={{ maxWidth: 600, margin: "2em auto", textAlign: "center" }}>
+      <h1>Pay with Cash App</h1>
+      <QRCode value="cashapp://$TravelingStarTransport" size={128} />
+      <p>Send payment to <strong>$TravelingStarTransport</strong></p>
+      <p>Include your Name, Pickup Date, and Service Type</p>
+      <p>Questions? Call (252) 969-2444</p>
     </div>
   );
 }
+
+
+
