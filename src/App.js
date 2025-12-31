@@ -1,8 +1,7 @@
 function App() {
   return (
-    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>Traveling Star POS</h1>
-      <p>Website is live and running.</p>
+    <div style={{ padding: "40px", fontSize: "24px" }}>
+      Traveling Star POS is live 🚀
     </div>
   );
 }
