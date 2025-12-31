@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/travelingstar-pos/static/js/main.0432361b.js",
+    "main.js": "/travelingstar-pos/static/js/main.12d752aa.js",
     "index.html": "/travelingstar-pos/index.html",
-    "main.0432361b.js.map": "/travelingstar-pos/static/js/main.0432361b.js.map"
+    "main.12d752aa.js.map": "/travelingstar-pos/static/js/main.12d752aa.js.map"
   },
   "entrypoints": [
-    "static/js/main.0432361b.js"
+    "static/js/main.12d752aa.js"
   ]
 }
