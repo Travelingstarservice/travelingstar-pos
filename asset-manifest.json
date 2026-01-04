@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/travelingstar-pos/static/css/main.a4ab093f.css",
-    "main.js": "/travelingstar-pos/static/js/main.f78b74ea.js",
+    "main.js": "/travelingstar-pos/static/js/main.d857acf4.js",
     "static/js/453.20359781.chunk.js": "/travelingstar-pos/static/js/453.20359781.chunk.js",
     "index.html": "/travelingstar-pos/index.html",
     "main.a4ab093f.css.map": "/travelingstar-pos/static/css/main.a4ab093f.css.map",
-    "main.f78b74ea.js.map": "/travelingstar-pos/static/js/main.f78b74ea.js.map",
+    "main.d857acf4.js.map": "/travelingstar-pos/static/js/main.d857acf4.js.map",
     "453.20359781.chunk.js.map": "/travelingstar-pos/static/js/453.20359781.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a4ab093f.css",
-    "static/js/main.f78b74ea.js"
+    "static/js/main.d857acf4.js"
   ]
 }
