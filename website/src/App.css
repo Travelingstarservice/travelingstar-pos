@@ -1,42 +1,43 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+body{
+    margin:0;
+    background:#111;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-header {
-  background: #111;
-  color: white;
-  padding: 30px;
-  text-align: center;
+.header{
+    text-align:center;
+    padding:40px;
+    background:#d10000;
 }
 
-.hero {
-  padding: 40px;
-  text-align: center;
+.logo{
+    width:260px;
+    max-width:90%;
+    margin-bottom:20px;
 }
 
-button {
-  padding: 15px 25px;
-  margin: 10px;
-  cursor: pointer;
+.callButton{
+    background:#18c218;
+    color:white;
+    border:none;
+    padding:15px 35px;
+    font-size:20px;
+    border-radius:10px;
+    cursor:pointer;
 }
 
-.services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 20px;
-  padding: 30px;
+.hero{
+    text-align:center;
+    padding:60px 20px;
 }
 
-.services div {
-  background:white;
-  padding:25px;
-  border-radius:10px;
-  text-align:center;
-}
-
-footer {
-  text-align:center;
-  padding:20px;
+.hero button{
+    background:red;
+    color:white;
+    border:none;
+    padding:18px 40px;
+    font-size:22px;
+    border-radius:10px;
+    cursor:pointer;
 }
