@@ -1,74 +1,35 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import OwnerDashboard from "./pages/OwnerDashboard";
+
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-function Home() {
-  return (
-    <div>
-      <h1>⭐ Traveling Star Service</h1>
-      <p>Transport & On-Demand Services</p>
-      <p>Book your service today.</p>
-    </div>
-  );
-}
-
-function Services() {
-  return (
-    <div>
-      <h1>Our Services</h1>
-      <p>Transportation, delivery, roadside assistance, cleanouts, and more.</p>
-    </div>
-  );
-}
-
-function Pricing() {
-  return (
-    <div>
-      <h1>Pricing</h1>
-      <p>Affordable rates. Custom quotes available.</p>
-    </div>
-  );
-}
-
-function Booking() {
-  return (
-    <div>
-      <h1>Book Service</h1>
-      <p>Online booking form coming next.</p>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h1>Customer Dashboard</h1>
-      <p>View your service requests here.</p>
-    </div>
-  );
-}
-
-function OwnerLogin() {
-  return (
-    <div>
-      <h1>Owner Login</h1>
-      <p>Owner management area.</p>
-    </div>
-  );
-}
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Pricing from "./pages/Pricing";
+import Booking from "./pages/Booking";
+import Contact from "./pages/Contact";
+import OwnerLogin from "./pages/OwnerLogin";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <BrowserRouter basename="/travelingstar-pos">
+      <div className="site-shell">
+        <Navbar />
+        <main className="site-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/owner-login" element={<OwnerLogin />} />
+            <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/owner" element={<OwnerLogin />} />
-      </Routes>
     </BrowserRouter>
   );
 }

@@ -2,22 +2,73 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 25px;
-  background: #b30000;
-  color: white;
+
+  padding: 15px 30px;
+
+  background: #990000;
+  border-bottom: 3px solid #00ff00;
 }
+
 
 .logo {
-  font-size: 22px;
+  color: #00ff00;
+
+  font-size: 24px;
   font-weight: bold;
+
+  white-space: nowrap;
 }
+
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
 
 .nav-links a {
+
   color: white;
+
   text-decoration: none;
-  margin-left: 15px;
+
+  font-weight: bold;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
 }
 
+
 .nav-links a:hover {
-  text-decoration: underline;
+
+  background: #00ff00;
+
+  color: black;
+
+}
+
+
+/* Mobile phone layout */
+
+@media (max-width: 700px) {
+
+  .navbar {
+
+    flex-direction: column;
+
+    gap: 15px;
+
+  }
+
+
+  .nav-links {
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+  }
+
 }
