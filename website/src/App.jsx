@@ -13,7 +13,7 @@ import OwnerLogin from "./pages/OwnerLogin";
 
 function App() {
   return (
-    <BrowserRouter basename="/travelingstar-pos">
+    <BrowserRouter basename={import.meta.env.VITE_BASE_PATH || "/"}>
       <div className="site-shell">
         <Navbar />
         <main className="site-content">
