@@ -24,6 +24,8 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/owner-login" element={<OwnerLogin />} />
+            <Route path="/admin" element={<OwnerDashboard />} />
+            <Route path="/dashboard" element={<OwnerDashboard />} />
             <Route path="/owner-dashboard" element={<OwnerDashboard />} />
           </Routes>
         </main>

@@ -1,23 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "@/utils/axios";
 
 function OwnerLogin() {
 
-  const [password, setPassword] = useState("");
+  const [pin, setPin] = useState("");
   const navigate = useNavigate();
 
-  const login = () => {
+  const login = async () => {
+    const payload = {
+      pin,
+    };
 
-    if (password === "TravelingStar123") {
+    try {
+      const response = await axios.post("/api/auth/login", payload);
 
-      navigate("/owner-dashboard");
-
-    } else {
-
-      alert("Incorrect Password");
-
+      if (response.data.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch {
+      alert("Incorrect PIN");
     }
-
   };
 
 
@@ -34,11 +39,11 @@ function OwnerLogin() {
 
         type="password"
 
-        placeholder="Enter Owner Password"
+        placeholder="Enter PIN"
 
-        value={password}
+        value={pin}
 
-        onChange={(e)=>setPassword(e.target.value)}
+        onChange={(e)=>setPin(e.target.value)}
 
       />
 
