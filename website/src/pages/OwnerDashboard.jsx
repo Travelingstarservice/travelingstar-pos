@@ -1,6 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { isAdminLoggedIn, logoutAdmin } from "../utils/adminAuth";
 
 function OwnerDashboard() {
+  const navigate = useNavigate();
+
+  if (!isAdminLoggedIn()) {
+    return <Navigate to="/owner-login" replace />;
+  }
+
+  const handleLogout = () => {
+    logoutAdmin();
+    navigate("/owner-login");
+  };
+
   return (
     <section className="owner-dashboard">
       <p className="eyebrow">Owner area</p>
@@ -12,6 +24,14 @@ function OwnerDashboard() {
         <Link to="/services">Review services</Link>
         <Link to="/pricing">Review pricing</Link>
         <Link to="/contact">Review contact details</Link>
+      </div>
+      <div className="owner-actions">
+        <Link className="button button-secondary" to="/owner-login">
+          Change PIN
+        </Link>
+        <button className="button button-secondary" type="button" onClick={handleLogout}>
+          Close admin access
+        </button>
       </div>
     </section>
   );
