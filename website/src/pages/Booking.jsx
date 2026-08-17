@@ -1,4 +1,33 @@
+import { useState } from "react";
+import { API_BASE } from "../config";
+
 function Booking() {
+  const [status, setStatus] = useState("");
+
+  const submitBooking = async (event) => {
+    event.preventDefault();
+    setStatus("Submitting...");
+
+    const formData = new FormData(event.currentTarget);
+    try {
+      const response = await fetch(`${API_BASE}/api/rides`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+
+      if (response.ok) {
+        event.currentTarget.reset();
+        setStatus("Your service request has been submitted.");
+      } else {
+        setStatus("Unable to submit your request. Please try again.");
+      }
+    } catch {
+      setStatus("Unable to submit your request. Please try again.");
+    }
+  };
 
   return (
 
@@ -23,7 +52,7 @@ function Booking() {
       <section>
 
 
-        <form>
+        <form onSubmit={submitBooking}>
 
 
           <label>
@@ -33,6 +62,8 @@ function Booking() {
           <input
             type="text"
             placeholder="Enter your name"
+            name="name"
+            required
           />
 
 
@@ -44,6 +75,8 @@ function Booking() {
           <input
             type="tel"
             placeholder="252-000-0000"
+            name="phone"
+            required
           />
 
 
@@ -55,6 +88,8 @@ function Booking() {
           <input
             type="email"
             placeholder="Email address"
+            name="email"
+            required
           />
 
 
@@ -64,7 +99,7 @@ function Booking() {
           </label>
 
 
-          <select>
+          <select name="service" required>
 
             <option>
               Transportation
@@ -97,6 +132,8 @@ function Booking() {
           <input
             type="text"
             placeholder="Pickup address"
+            name="pickupLocation"
+            required
           />
 
 
@@ -108,6 +145,7 @@ function Booking() {
           <input
             type="text"
             placeholder="Destination address"
+            name="destination"
           />
 
 
@@ -118,6 +156,8 @@ function Booking() {
 
           <input
             type="datetime-local"
+            name="dateTime"
+            required
           />
 
 
@@ -128,14 +168,16 @@ function Booking() {
 
           <textarea
             placeholder="Additional details"
+            name="notes"
           ></textarea>
 
 
 
-          <button>
+          <button type="submit">
             SUBMIT REQUEST
           </button>
 
+          {status && <p role="status">{status}</p>}
 
         </form>
 
