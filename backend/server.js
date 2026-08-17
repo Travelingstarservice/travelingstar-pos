@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
   res.send('Hello from TravelingStar POS backend!');
 });
 
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 // POST route for rides
 app.post('/api/rides', (req, res) => {
   const ride = req.body;
@@ -22,4 +26,3 @@ app.post('/api/rides', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
