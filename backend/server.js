@@ -1,7 +1,9 @@
 const express = require('express');   // 1. Import express
+const cors = require('cors');
 const app = express();                 // 2. Create app instance
 const PORT = process.env.PORT || 3000; // 3. Set port
 
+app.use(cors());
 app.use(express.json()); // Middleware to parse JSON
 
 // Root test route
@@ -22,4 +24,3 @@ app.post('/api/rides', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-

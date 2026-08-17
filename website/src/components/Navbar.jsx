@@ -31,8 +31,8 @@ function Navbar() {
           Contact
         </Link>
 
-        <Link to="/owner-login">
-          Owner Login
+        <Link to="/admin-login">
+          Admin Login
         </Link>
 
       </div>
