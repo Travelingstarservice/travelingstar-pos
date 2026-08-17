@@ -3,20 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "https://travelingstarservice-backend.onrender.com";
 
-function OwnerLogin() {
+function AdminLogin() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "admin@travelingstar.com",
     password: "TravelingStar123",
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((currentForm) => ({ ...currentForm, [name]: value }));
   };
 
-  const login = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
 
@@ -31,13 +31,12 @@ function OwnerLogin() {
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.error || "Login failed.");
       }
 
       if (!data.token) {
-        throw new Error("Authentication token missing from response.");
+        throw new Error("Authentication token missing from server response.");
       }
 
       localStorage.setItem("admin_token", data.token);
@@ -48,13 +47,13 @@ function OwnerLogin() {
   };
 
   return (
-    <div className="owner-login">
-      <h1>🔐 Traveling Star Owner Login</h1>
-      <form onSubmit={login}>
+    <section className="owner-login">
+      <h1>🔐 Traveling Star Admin Login</h1>
+      <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="owner-email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
-            id="owner-email"
+            id="email"
             name="email"
             type="email"
             value={form.email}
@@ -65,23 +64,24 @@ function OwnerLogin() {
         </div>
 
         <div>
-          <label htmlFor="owner-password">Password</label>
+          <label htmlFor="password">Password</label>
           <input
-            id="owner-password"
+            id="password"
             name="password"
             type="password"
             value={form.password}
             onChange={handleChange}
-            placeholder="Enter Owner Password"
+            placeholder="Enter admin password"
             required
           />
         </div>
 
         {error && <p role="alert">{error}</p>}
+
         <button type="submit">Login</button>
       </form>
-    </div>
+    </section>
   );
 }
 
-export default OwnerLogin;
+export default AdminLogin;

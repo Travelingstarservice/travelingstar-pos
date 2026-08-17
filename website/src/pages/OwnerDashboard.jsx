@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function OwnerDashboard() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("admin_token");
+    if (!token) {
+      navigate("/admin-login");
+    }
+  }, [navigate]);
+
   return (
     <section className="owner-dashboard">
       <p className="eyebrow">Owner area</p>
