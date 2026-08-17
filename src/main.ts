@@ -44,9 +44,14 @@ async function loginAdmin(username: string, password: string): Promise<string> {
     body: JSON.stringify({ username, password })
   })
 
-  const payload = (await response.json()) as Partial<LoginResponse> & { error?: string }
+  let payload: Partial<LoginResponse> & { error?: string } = {}
+  try {
+    payload = (await response.json()) as Partial<LoginResponse> & { error?: string }
+  } catch {
+    // ignore non-JSON responses
+  }
   if (!response.ok || !payload.token) {
-    throw new Error(payload.error ?? 'Login failed')
+    throw new Error(payload.error ?? `Login failed (HTTP ${response.status})`)
   }
 
   return payload.token
