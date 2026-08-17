@@ -23,7 +23,9 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/booking" element={<Booking />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin-login" element={<OwnerLogin />} />
             <Route path="/owner-login" element={<OwnerLogin />} />
+            <Route path="/admin-dashboard" element={<OwnerDashboard />} />
             <Route path="/owner-dashboard" element={<OwnerDashboard />} />
           </Routes>
         </main>
