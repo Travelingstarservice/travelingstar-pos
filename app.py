@@ -4,7 +4,8 @@ import os
 import secrets
 
 app = Flask(__name__)
-CORS(app)
+cors_origins = [origin.strip() for origin in os.environ.get("CORS_ORIGINS", "").split(",") if origin.strip()]
+CORS(app, resources={r"/api/*": {"origins": cors_origins or "http://localhost:5173"}})
 
 ACTIVE_TOKENS: dict[str, str] = {}
 
