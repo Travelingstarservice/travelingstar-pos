@@ -26,7 +26,8 @@ function OwnerLogin() {
         throw new Error(data.error || "Unable to sign in");
       }
 
-      localStorage.setItem("admin_token", data.token);
+      const token = data.token;
+      localStorage.setItem("admin_token", token);
       navigate("/admin-dashboard", { replace: true });
     } catch (loginError) {
       setError(loginError.message || "Unable to sign in");
